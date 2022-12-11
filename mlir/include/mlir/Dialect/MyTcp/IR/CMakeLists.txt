@@ -1,0 +1,15 @@
+set(LLVM_TARGET_DEFINITIONS MyTcpOps.td)
+add_mlir_dialect(MyTcpOps mytcp)
+add_mlir_doc(MyTcpOps MyTcpOps Dialects/ -gen-dialect-doc)
+
+set(LLVM_TARGET_DEFINITIONS MyTcpAttributes.td)
+mlir_tablegen(MyTcpAttributes.h.inc -gen-attrdef-decls)
+mlir_tablegen(MyTcpAttributes.cpp.inc -gen-attrdef-defs)
+add_public_tablegen_target(MLIRMyTcpAttributesIncGen)
+add_dependencies(mlir-headers MLIRMyTcpAttributesIncGen)
+
+set(LLVM_TARGET_DEFINITIONS MyTcpTypes.td)
+mlir_tablegen(MyTcpTypes.h.inc -gen-typedef-decls)
+mlir_tablegen(MyTcpTypes.cpp.inc -gen-typedef-defs)
+add_public_tablegen_target(MLIRMyTcpTypesIncGen)
+add_dependencies(mlir-headers MLIRMyTcpTypesIncGen)
